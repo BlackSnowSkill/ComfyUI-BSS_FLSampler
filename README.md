@@ -9,6 +9,10 @@
 > **© 2026 blacksnowskill (BSS). All rights reserved.**  
 > This project is protected by copyright. Any unauthorized copying, modification without attribution, or representing this code as your own product is strictly prohibited.
 
+> [!TIP]
+> **Ultimate Speed & Performance Booster:**  
+> To achieve the ultimate balance of breathtaking visual clarity and lightning-fast generations, we highly recommend pairing **FLSampler (BSS)** with our core optimization suite **[ANIMA_BOOSTER](https://github.com/BlackSnowSkill/ANIMA_BOOSTER)**. It delivers a massive **3.5× to 5.0× speedup** on Anima DiT models, while FLSampler perfectly preserves and enhances every tiny high-frequency detail!
+
 ---
 
 ## 🔬 Physics & Mathematics of the Process
@@ -82,3 +86,20 @@ The node provides two outputs:
    git clone https://github.com/BlackSnowSkill/ComfyUI-BSS_FLSampler.git
    ```
 3. Restart ComfyUI and refresh your browser cache (`Ctrl + F5`) to enjoy the gorgeous BSS Premium UI.
+
+---
+
+## ☕ Support & Development
+
+If you love my work and want to support the development of future optimizations, nodes, and custom models, please consider supporting me:
+
+- **Boosty**: [Support & Exclusive Models](https://boosty.to/blacksnowskill)
+
+---
+
+## 📄 License & Usage
+
+© 2026 blacksnowskill (BSS). All rights reserved.
+
+This software is an experimental release. Feedback is highly welcome.
+**Notice:** This project is protected by copyright. Any unauthorized copying, distribution, merging with other projects, or hosting on other repositories/websites without the explicit written permission of the author is strictly prohibited.
