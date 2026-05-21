@@ -326,9 +326,70 @@ function applyPremiumWidgetRenderers(node) {
         const lowerType = String(type || "").toLowerCase();
         const name = String(widget.name || "").toLowerCase();
 
-        if (lowerType === "slider" || widget.options?.display === "slider" || name === "fovea_strength" || name === "sharpness" || name === "mask_inertia" || name === "denoise" || name === "cfg") {
+        // Принудительно корректируем опции, чтобы обойти кэширование старого workflow JSON
+        if (name === "fovea_strength") {
+            widget.options = widget.options || {};
+            widget.options.min = 0.0;
+            widget.options.max = 10.0;
+            widget.options.step = 0.1;
+        } else if (name === "sharpness") {
+            widget.options = widget.options || {};
+            widget.options.min = 0.0;
+            widget.options.max = 3.0;
+            widget.options.step = 0.05;
+        } else if (name === "mask_inertia") {
+            widget.options = widget.options || {};
+            widget.options.min = 0.0;
+            widget.options.max = 0.99;
+            widget.options.step = 0.01;
+        } else if (name === "cfg") {
+            widget.options = widget.options || {};
+            widget.options.step = 0.1;
+        }
+
+        if (name === "fovea_strength" || name === "sharpness" || name === "mask_inertia") {
             widget.draw = function (ctx, node, widget_width, y, margin) {
                 drawPremiumSlider(ctx, node, widget_width, y, margin, this);
+            };
+            // 100% корректное физическое перетаскивание по нашему премиальному слайдеру с округлением шага
+            widget.mouse = function (e, pos, node) {
+                if (e.type === "mousedown" || e.type === "pointerdown" || e.type === "mousemove" || e.type === "pointermove") {
+                    const min = this.options.min ?? 0;
+                    const max = this.options.max ?? 100;
+                    const step = this.options.step ?? 0.1;
+                    
+                    const margin = 10;
+                    const widget_width = node.size[0];
+                    const slider_x_start = margin;
+                    const slider_w = widget_width - margin * 2;
+                    
+                    let ratio = (pos[0] - slider_x_start) / slider_w;
+                    ratio = Math.max(0, Math.min(1, ratio));
+                    
+                    let val = min + ratio * (max - min);
+                    
+                    if (step > 0) {
+                        val = Math.round(val / step) * step;
+                        // Исправляем JavaScript артефакты точности с плавающей точкой
+                        const stepStr = String(step);
+                        const dotIdx = stepStr.indexOf(".");
+                        if (dotIdx !== -1) {
+                            const precision = stepStr.length - dotIdx - 1;
+                            val = parseFloat(val.toFixed(precision));
+                        }
+                    }
+                    
+                    val = Math.max(min, Math.min(max, val));
+                    this.value = val;
+                    
+                    if (this.callback) {
+                        this.callback(this.value, node);
+                    }
+                    
+                    node.setDirtyCanvas(true, true);
+                    return true;
+                }
+                return false;
             };
         } else if (lowerType === "toggle" || typeof widget.value === "boolean") {
             widget.draw = function (ctx, node, widget_width, y, margin) {
@@ -338,7 +399,7 @@ function applyPremiumWidgetRenderers(node) {
             widget.draw = function (ctx, node, widget_width, y, margin) {
                 drawPremiumCombo(ctx, node, widget_width, y, margin, this);
             };
-        } else if (lowerType === "number" || lowerType === "int" || lowerType === "float" || lowerType === "integer" || widget.options?.display === "number" || name === "steps" || name === "seed") {
+        } else if (lowerType === "number" || lowerType === "int" || lowerType === "float" || lowerType === "integer" || widget.options?.display === "number" || name === "steps" || name === "seed" || name === "cfg" || name === "denoise") {
             widget.draw = function (ctx, node, widget_width, y, margin) {
                 drawPremiumNumber(ctx, node, widget_width, y, margin, this);
             };

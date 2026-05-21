@@ -25,7 +25,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {}
 
 if FLSSamplerNodeV4 is not None:
     NODE_CLASS_MAPPINGS["FLS_SamplerV4"] = FLSSamplerNodeV4
-    NODE_DISPLAY_NAME_MAPPINGS["FLS_SamplerV4"] = "FLSampler (Foveated Latent) (BSS)"
+    NODE_DISPLAY_NAME_MAPPINGS["FLS_SamplerV4"] = "FLSampler (BSS)"
 
 WEB_DIRECTORY = "./web"
 

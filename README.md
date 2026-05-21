@@ -46,9 +46,9 @@ This node completely replaces the standard KSampler, introducing both classic co
 
 | Parameter | Range | Recommended | Description |
 | :--- | :--- | :--- | :--- |
-| **fovea_strength** | `0.0 – 200.0` | **`5.0 – 15.0`** | **Texture Strength:** Controls high-frequency detail, skin porosity, and fine textures. Set to `0.0` to disable noise injection entirely. |
-| **sharpness** | `0.0 – 20.0` | **`1.5 – 3.0`** | **Local Contrast:** Dictates edge definition and object boundary clarity in focus zones. Delivers a "tack-sharp" look without halo artifacts. |
-| **mask_inertia** | `0.0 – 0.99` | **`0.80 – 0.90`** | **Mask Inertia:** Focus movement smoothness between steps. Values `>0.85` stabilize detail zones, while lower values (`<0.50`) force the focus to react instantly to sudden changes. |
+| **fovea_strength** | `0.0 – 10.0` | **`3.0 – 8.0`** | **Texture Strength:** Controls high-frequency detail, skin porosity, and fine textures. Set to `0.0` to disable noise injection entirely. Default: `3.0`. |
+| **sharpness** | `0.0 – 3.0` | **`0.3 – 1.0`** | **Local Contrast:** Dictates edge definition and object boundary clarity in focus zones. Delivers a "tack-sharp" look without halo artifacts or "frying" the image. Default: `0.5`. |
+| **mask_inertia** | `0.0 – 0.99` | **`0.80 – 0.90`** | **Mask Inertia:** Focus movement smoothness between steps. Values `>0.85` stabilize detail zones, while lower values force the focus to react instantly to sudden changes. Default: `0.85` (step `0.01`). |
 | **denoise** | `0.0 – 1.0` | **`1.0`** | Standard denoising strength. |
 | **steps** / **cfg** | - | - | Standard generation steps and prompt guidance scale. |
 
